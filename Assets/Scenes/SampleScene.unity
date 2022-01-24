@@ -237,7 +237,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 4
   height: 4
-  blockPregab: {fileID: -8792754933598178668, guid: 48ab6c475898b8a4c848606ad6f84764, type: 3}
+  blockPrefab: {fileID: -8792754933598178668, guid: 48ab6c475898b8a4c848606ad6f84764, type: 3}
+  boardPrefab: {fileID: 1397241822863373757, guid: ff47a98749d5cfe44b8190b977b8d5a5, type: 3}
 --- !u!4 &575906009
 Transform:
   m_ObjectHideFlags: 0
