@@ -1,10 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Figure : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public int value;
+    public TextMeshPro textMeshPro;
+    public Block block;
+
+    public Vector2 Pos => transform.position;
+
+    public void Init(int v)
+    {
+        value = v;
+        textMeshPro.text = v.ToString();
+
+    }
     void Start()
     {
         
