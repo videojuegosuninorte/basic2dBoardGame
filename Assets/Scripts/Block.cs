@@ -6,6 +6,13 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     public Figure occupidedFigure;
+    private GameManager gameManager;
+
+
+    public void Init(GameManager gm)
+    {
+        gameManager = gm;
+    }
 
     public Vector2 Pos => transform.position;
 
@@ -16,10 +23,7 @@ public class Block : MonoBehaviour
         figure.transform.position = transform.position;
     }
 
-    void OnMouseDown()
-    {
-      //  Debug.Log("mouse click");
-    }
+
 
     public void removeFigure()
     {

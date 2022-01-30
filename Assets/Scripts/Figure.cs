@@ -17,14 +17,8 @@ public class Figure : MonoBehaviour
         textMeshPro.text = v.ToString();
 
     }
-    void Start()
+    void OnMouseDown()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log("Figure "+value+" mouse click");
     }
 }

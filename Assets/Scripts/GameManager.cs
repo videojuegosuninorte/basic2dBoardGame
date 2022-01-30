@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GameLogic : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public int width = 4;
     public int height = 4;
@@ -57,41 +57,11 @@ public class GameLogic : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("main mouse click");
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            Physics.Raycast(ray, out hit);
-           
-
-            if (Physics.Raycast(ray, 100f))
-            {
-                Debug.Log("............");
-            //    //Select stage    
-            //    //if (hit.transform.name == "Cube")
-            //    //{
-            //    //    SceneManager.LoadScene("SceneTwo");
-            //    //}
-            }
-        }
-
-        //Vector3 clickpos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //    Vector2 click2D = new Vector2(mousePos.x, mousePos.y);
-
-        //    RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-        //    if (hit.collider != null)
-        //    {
-        //        Debug.Log(hit.collider.gameObject.name);
-        //    }
-        
-
         var orderList = blocks.OrderBy(b => b.Pos.x).ThenBy(b => b.Pos.y).ToList();
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {    
-            if (currentX < width)
+            if (currentX < width - 1)
             {
                 currentX = currentX + 1;
                 currentIndex = currentIndex + width;
@@ -99,7 +69,7 @@ public class GameLogic : MonoBehaviour
                 selectedBlock.removeFigure();
                 selectedBlock = orderList[currentIndex];
                 selectedBlock.setFigure(f);
-                Debug.Log(currentIndex + "  " + orderList[currentIndex].Pos.ToString());
+                Debug.Log(currentX + "  " + orderList[currentIndex].Pos.ToString());
             }
         }
 
@@ -113,13 +83,13 @@ public class GameLogic : MonoBehaviour
                 currentX--;
                 selectedBlock = orderList[currentIndex];
                 selectedBlock.setFigure(f);
-                Debug.Log(currentIndex + "  " + orderList[currentIndex].Pos.ToString());
+                Debug.Log(currentX + "  " + orderList[currentIndex].Pos.ToString());
             }
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (currentY < height)
+            if (currentY < height - 1)
             {
                 currentY++;
                 currentIndex++;
@@ -127,7 +97,7 @@ public class GameLogic : MonoBehaviour
                 selectedBlock.removeFigure();
                 selectedBlock = orderList[currentIndex];
                 selectedBlock.setFigure(f);
-                Debug.Log(currentIndex + "  " + orderList[currentIndex].Pos.ToString());
+                Debug.Log(currentY + "  " + orderList[currentIndex].Pos.ToString());
             }
         }
 
