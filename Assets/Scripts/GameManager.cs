@@ -11,24 +11,28 @@ public class GameManager : MonoBehaviour
     public Figure figurePrefab;
     public SpriteRenderer boardPrefab;
     private List<Block> blocks;
-    private int currentX, currentY, currentIndex;
+    private int currentIndex;
+    public int currentX, currentY;
     private Block selectedBlock;
     void Start()
     {
         blocks = new List<Block>();
         GenerateBoard();
-        SpawnBlock();
-        
+        SpawnFigure(3);
+
     }
 
     void GenerateBoard()
     {
+        int index = 0;
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
                 var block = Instantiate(blockPrefab, new Vector2(i, j), Quaternion.identity);
                 blocks.Add(block);
+                block.Init(this, index);
+                index++;
             }
         }
 
@@ -40,18 +44,39 @@ public class GameManager : MonoBehaviour
         Camera.main.transform.position = new Vector3(center.x, center.y, -20);
     }
 
-    void SpawnBlock()
+    void setCurrentBlock(Block block)
     {
-        Block block = blocks[0];
-        Figure figure = Instantiate(figurePrefab, block.Pos, Quaternion.identity);
-        figure.Init(2);
-        block.occupidedFigure = figure;
-        currentX = 0;
-        currentY = 0;
-        currentIndex = 0;
+        if (block == null)
+        {
+            Debug.Log("Blick is nukk");
+            return;
+        }
+        currentX = (int)block.Pos.x;
+        currentY = (int)block.Pos.y;
+        currentIndex = block.index;
         selectedBlock = block;
     }
 
+    void SpawnFigure(int amount)
+    {
+        var orderList = blocks.OrderBy(b => Random.Range(0, blocks.Count)).ToList();
+        for (int i = 0; i < amount; i++)
+        {
+            Block block = orderList[i];
+            Figure figure = Instantiate(figurePrefab, block.Pos, Quaternion.identity);
+            figure.setValue(i);
+            block.setFigure(figure);
+           
+            setCurrentBlock(block);
+        }
+        
+
+    }
+
+    public void setCurrentPos(Block block)
+    {
+       setCurrentBlock(block);
+    }
 
 
     void Update()
@@ -63,8 +88,10 @@ public class GameManager : MonoBehaviour
         {    
             if (currentX < width - 1)
             {
-                currentX = currentX + 1;
+                if (orderList[currentIndex + width].isOccupied)
+                    return;
                 currentIndex = currentIndex + width;
+                currentX = currentX + 1;
                 Figure f = selectedBlock.occupidedFigure;
                 selectedBlock.removeFigure();
                 selectedBlock = orderList[currentIndex];
@@ -77,6 +104,8 @@ public class GameManager : MonoBehaviour
         {
             if (currentX > 0)
             {
+                if (orderList[currentIndex - width].isOccupied)
+                    return;
                 Figure f = selectedBlock.occupidedFigure;
                 selectedBlock.removeFigure();
                 currentIndex = currentIndex - width;
@@ -91,6 +120,8 @@ public class GameManager : MonoBehaviour
         {
             if (currentY < height - 1)
             {
+                if (orderList[currentIndex + 1].isOccupied)
+                    return;
                 currentY++;
                 currentIndex++;
                 Figure f = selectedBlock.occupidedFigure;
@@ -105,6 +136,8 @@ public class GameManager : MonoBehaviour
         {
             if (currentY > 0)
             {
+                if (orderList[currentIndex - 1].isOccupied)
+                    return;
                 Figure f = selectedBlock.occupidedFigure;
                 selectedBlock.removeFigure();
                 currentY--;
