@@ -24,9 +24,7 @@ public class Block : MonoBehaviour
     public void setFigure(Figure figure)
     {
         occupidedFigure = figure;
-        figure.block = this;
-        figure.transform.position = transform.position;
-        figure.Init(gameManager,this, (int)Pos.x, (int)Pos.y);
+
     }
 
 

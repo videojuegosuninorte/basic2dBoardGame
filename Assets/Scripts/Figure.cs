@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +10,7 @@ public class Figure : MonoBehaviour
     public TextMeshPro textMeshPro;
     public Block block;
     private GameManager gameManager;
+    public float travaleTime = 0.2f;
 
 
     public Vector2 Pos => transform.position;
@@ -36,6 +38,15 @@ public class Figure : MonoBehaviour
             Debug.Log("gameManager is null");
             return;
         }
-        gameManager.setCurrentPos(block);
+        gameManager.setCurrentBlock(block);
+    }
+
+    public void move(Block newBlock)
+    {
+        block.removeFigure();
+        newBlock.setFigure(this);
+        block = newBlock;
+        //transform.position = newBlock.Pos;   // use this line to see movement without animation
+        transform.DOMove(newBlock.Pos, travaleTime);  // travelTime = 0.2f
     }
 }

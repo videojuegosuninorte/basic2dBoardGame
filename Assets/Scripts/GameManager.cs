@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         Camera.main.transform.position = new Vector3(center.x, center.y, -20);
     }
 
-    void setCurrentBlock(Block block)
+    public void setCurrentBlock(Block block)
     {
         if (block == null)
         {
@@ -66,18 +66,10 @@ public class GameManager : MonoBehaviour
             Figure figure = Instantiate(figurePrefab, block.Pos, Quaternion.identity);
             figure.setValue(i);
             block.setFigure(figure);
-           
+            figure.Init(this, block, (int)block.Pos.x, (int)block.Pos.y);
             setCurrentBlock(block);
         }
-        
-
     }
-
-    public void setCurrentPos(Block block)
-    {
-       setCurrentBlock(block);
-    }
-
 
     void Update()
     {
@@ -92,10 +84,7 @@ public class GameManager : MonoBehaviour
                     return;
                 currentIndex = currentIndex + width;
                 currentX = currentX + 1;
-                Figure f = selectedBlock.occupidedFigure;
-                selectedBlock.removeFigure();
-                selectedBlock = orderList[currentIndex];
-                selectedBlock.setFigure(f);
+                moveFigure(orderList[currentIndex]);
                 Debug.Log(currentX + "  " + orderList[currentIndex].Pos.ToString());
             }
         }
@@ -106,12 +95,9 @@ public class GameManager : MonoBehaviour
             {
                 if (orderList[currentIndex - width].isOccupied)
                     return;
-                Figure f = selectedBlock.occupidedFigure;
-                selectedBlock.removeFigure();
                 currentIndex = currentIndex - width;
                 currentX--;
-                selectedBlock = orderList[currentIndex];
-                selectedBlock.setFigure(f);
+                moveFigure(orderList[currentIndex]);
                 Debug.Log(currentX + "  " + orderList[currentIndex].Pos.ToString());
             }
         }
@@ -124,10 +110,7 @@ public class GameManager : MonoBehaviour
                     return;
                 currentY++;
                 currentIndex++;
-                Figure f = selectedBlock.occupidedFigure;
-                selectedBlock.removeFigure();
-                selectedBlock = orderList[currentIndex];
-                selectedBlock.setFigure(f);
+                moveFigure(orderList[currentIndex]);
                 Debug.Log(currentY + "  " + orderList[currentIndex].Pos.ToString());
             }
         }
@@ -138,20 +121,19 @@ public class GameManager : MonoBehaviour
             {
                 if (orderList[currentIndex - 1].isOccupied)
                     return;
-                Figure f = selectedBlock.occupidedFigure;
-                selectedBlock.removeFigure();
                 currentY--;
                 currentIndex--;
-                selectedBlock = orderList[currentIndex];
-                selectedBlock.setFigure(f);
+                moveFigure(orderList[currentIndex]);
                 Debug.Log(currentIndex + "  " + orderList[currentIndex].Pos.ToString());
             }
         }
     }
 
-    private void moveFigure(Figure figure, float h)
+    private void moveFigure(Block newBlock)
     {
-
+        Figure figure = selectedBlock.occupidedFigure;
+        selectedBlock = newBlock;
+        figure.move(selectedBlock);
     }
 
 }
