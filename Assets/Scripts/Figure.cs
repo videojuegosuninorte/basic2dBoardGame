@@ -9,16 +9,14 @@ public class Figure : MonoBehaviour
     private int value, x, y;
     public TextMeshPro textMeshPro;
     public Block block;
-    private GameManager gameManager;
     public float travaleTime = 0.2f;
 
 
     public Vector2 Pos => transform.position;
 
-    public void Init(GameManager gm, Block block,int x, int y)
+    public void Init(Block block,int x, int y)
     {
         Debug.Log("Figure "+ " " + x + " " + y);
-        gameManager = gm;
         this.x = x;
         this.y = y;
         this.block = block;
@@ -33,12 +31,8 @@ public class Figure : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("Figure "+value+" mouse click");
-        if (gameManager == null)
-        {
-            Debug.Log("gameManager is null");
-            return;
-        }
-        gameManager.setCurrentBlock(block);
+
+        GameManager.Instance.setCurrentBlock(block);
     }
 
     public void move(Block newBlock)

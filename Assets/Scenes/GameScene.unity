@@ -252,11 +252,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42527bd9bc1dd444f9d4700f3f5c4c6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 4
-  height: 4
+  width: 5
+  height: 5
   blockPrefab: {fileID: -8792754933598178668, guid: 48ab6c475898b8a4c848606ad6f84764, type: 3}
   figurePrefab: {fileID: 6693428705808950907, guid: a4b67181f58abf1448bc049bd1d49a2f, type: 3}
   boardPrefab: {fileID: 1397241822863373757, guid: ff47a98749d5cfe44b8190b977b8d5a5, type: 3}
+  currentX: 0
+  currentY: 0
 --- !u!4 &575906009
 Transform:
   m_ObjectHideFlags: 0

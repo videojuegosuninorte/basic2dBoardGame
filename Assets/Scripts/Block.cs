@@ -7,15 +7,11 @@ public class Block : MonoBehaviour
 {
     public Figure occupidedFigure;
     public int index;
-    private GameManager gameManager;
-
     public bool isOccupied => occupidedFigure != null;
 
 
-
-    public void Init(GameManager gm, int index)
+    public void Init(int index)
     {
-        gameManager = gm;
         this.index = index;
     }
 
@@ -27,10 +23,6 @@ public class Block : MonoBehaviour
 
     }
 
-
-
-
-
     public void removeFigure()
     {
         if (occupidedFigure != null) {
@@ -40,15 +32,4 @@ public class Block : MonoBehaviour
         
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
