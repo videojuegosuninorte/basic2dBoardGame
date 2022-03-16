@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     {
         if (block == null)
         {
-            Debug.Log("Blick is nukk");
+            Debug.Log("Block is null");
             return;
         }
         currentX = (int)block.Pos.x;
